@@ -1,8 +1,58 @@
+/* Main */
+
 html, body {
   height: 100%;
 }
 
 #map {
   height: 100%;
+  position: absolute;
+  left: 314px;
+  right: 0px;
+  bottom: 0px;
   }
 
+/* Sidebar */
+
+
+aside {
+  width: 308px;
+  height: 99%;
+  background-color: #A27F47;
+  border: 3px solid #513F23;
+}
+
+#title {
+  height: 7%;
+  width: 100%;
+  font-family: 'Proza Libre', sans-serif;
+  font-size: 14px;
+  text-align: center;
+  line-height: 45px;
+}
+
+
+/* Filter Box */
+
+#filter-box {
+  height: 3%;
+  width: 100%;
+  background-color: #B8A064;
+  display: flex;
+}
+
+#filter-text-area {
+  width: 75%;
+}
+
+#filter-area {
+  width: 25%;
+}
+
+#filter-text {
+  width: 99%;
+}
+
+#filter{
+  width: 99%;
+}
