@@ -18,8 +18,8 @@ html, body {
 aside {
   width: 308px;
   height: 99%;
-  background-color: #A27F47;
-  border: 3px solid #513F23;
+  background-color: #B8A064;
+  border: 3px solid #513F23; 
 }
 
 #title {
@@ -55,4 +55,21 @@ aside {
 
 #filter{
   width: 99%;
+}
+
+/* List View */
+
+#list-view {
+  padding-top: 25px;
+  background-color: #A27F47;
+  font-family: 'Gentium Basic', serif;
+}
+
+#list-view li {
+  margin-bottom: 25px;
+  margin-left: 15px;
+}
+
+li:last-of-type{
+  padding-bottom: 25px;
 }

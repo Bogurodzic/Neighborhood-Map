@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Proza+Libre" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Gentium+Basic" rel="stylesheet">
 	<title>Neighborhood Map</title>
 </head>
 <body>
@@ -15,6 +16,11 @@
 		<div id="filter-box">
 			<div id="filter-text-area"><input id="filter-text" type="text"></div>
 			<div id="filter-area"><input id="filter" type="button" value="Filter"></div>
+		</div>
+		<div id="list-view">
+			<ul data-bind="foreach: people">
+				<li data-bind="text: title"></li>
+			</ul>
 		</div>
 		<div id="view-list">
 			
@@ -33,6 +39,34 @@
           zoom: 13,
           styles: styles
         });
+
+        var locations = [
+        	{title: 'Złote Tarasy', location: {lat: 52.230005, lng: 21.0003818}},
+        	{title: 'Uniwersytet Warszawski', location: {lat: 52.2403463, lng: 21.0164125}},
+        	{title: 'Empik', location: {lat: 52.2333044, lng: 21.0080667}},
+        	{title: 'Google', location: {lat: 52.2335813, lng: 20.9996984}},
+        	{title: 'Restauracja McDonald', location: {lat: 52.2348707, lng: 21.0059326}},
+        	{title: 'Stadion Narodowy', location: {lat: 52.2394957, lng: 21.0436022}}
+        ];
+
+        var ViewModel = function(){
+        	this.people = ko.observableArray(locations);
+        };
+
+        ko.applyBindings(new ViewModel());
+
+        for (var i=0; i<locations.length; i++){
+
+        	var title = locations[i].title;
+        	var location = locations[i].location;
+
+        	var marker = new google.maps.Marker({
+        		position: location,
+        		map: map,
+        		title: title
+        	});
+        }
+
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0&callback=initMap"
