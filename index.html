@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" type="text/css" href="css/reset.css">
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<link href="https://fonts.googleapis.com/css?family=Proza+Libre" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Gentium+Basic" rel="stylesheet">
-	<title>Neighborhood Map</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Proza+Libre" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Gentium+Basic" rel="stylesheet">
+  <title>Neighborhood Map</title>
 </head>
 <body>
-	<aside>
-		<div id="title">My Favourite Locations</div>
-		<div id="filter-box">
-			<div id="filter-text-area"><input id="filter-text" type="text"></div>
-			<div id="filter-area"><input id="filter" type="button" value="Filter"></div>
-		</div>
-		<div id="list-view">
-			<ul data-bind="foreach: people">
-				<li data-bind="text: title"></li>
-			</ul>
-		</div>
-		<div id="view-list">
-			
-		</div>
-	</aside>
-	<div id="map"></div>
-	<script src="js/knockout-3.4.0.js"></script>
-    <script>
-      var map;
-      function initMap() {
+  <aside>
+    <div id="title">My Favourite Locations</div>
+    <div id="filter-box">
+      <div id="filter-text-area"><input id="filter-text" type="text" placeholder="Filter list here." data-bind="value: filter, valueUpdate: 'afterkeydown'"></div>
+      <div id="filter-area"><input id="filter" type="button" value="Filter" data-bind="click: hideListings"></div>
+    </div>
+    <div id="list-view">
+      <ul data-bind="foreach: filteredItems">
+        <li data-bind="text: title"></li>
+      </ul>
+    </div>
+    <div id="view-list">
+      
+    </div>
+  </aside>
+  <div id="map"></div>
+  <script src="js/knockout-3.4.0.js"></script>
+  <script>
+    var map;
+    //array for the markers
+    var markers = [];
 
-      	var styles = [{"elementType":"geometry","stylers":[{"hue":"#ff4400"},{"saturation":-68},{"lightness":-4},{"gamma":0.72}]},{"featureType":"road","elementType":"labels.icon"},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"hue":"#0077ff"},{"gamma":3.1}]},{"featureType":"water","stylers":[{"hue":"#00ccff"},{"gamma":0.44},{"saturation":-33}]},{"featureType":"poi.park","stylers":[{"hue":"#44ff00"},{"saturation":-23}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"hue":"#007fff"},{"gamma":0.77},{"saturation":65},{"lightness":99}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"gamma":0.11},{"weight":5.6},{"saturation":99},{"hue":"#0091ff"},{"lightness":-86}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"lightness":-48},{"hue":"#ff5e00"},{"gamma":1.2},{"saturation":-23}]},{"featureType":"transit","elementType":"labels.text.stroke","stylers":[{"saturation":-64},{"hue":"#ff9100"},{"lightness":16},{"gamma":0.47},{"weight":2.7}]}];
+    var locations = [
+	    {title: 'Złote Tarasy', location: {lat: 52.230005, lng: 21.0003818}},
+	    {title: 'Uniwersytet Warszawski', location: {lat: 52.2403463, lng: 21.0164125}},
+	    {title: 'Empik', location: {lat: 52.2333044, lng: 21.0080667}},
+        {title: 'Google', location: {lat: 52.2335813, lng: 20.9996984}},
+        {title: 'Restauracja McDonald', location: {lat: 52.2348707, lng: 21.0059326}},
+        {title: 'Stadion Narodowy', location: {lat: 52.2394957, lng: 21.0436022}}
+       ];
+
+    function initMap() {
+
+        var styles = [{"elementType":"geometry","stylers":[{"hue":"#ff4400"},{"saturation":-68},{"lightness":-4},{"gamma":0.72}]},{"featureType":"road","elementType":"labels.icon"},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"hue":"#0077ff"},{"gamma":3.1}]},{"featureType":"water","stylers":[{"hue":"#00ccff"},{"gamma":0.44},{"saturation":-33}]},{"featureType":"poi.park","stylers":[{"hue":"#44ff00"},{"saturation":-23}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"hue":"#007fff"},{"gamma":0.77},{"saturation":65},{"lightness":99}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"gamma":0.11},{"weight":5.6},{"saturation":99},{"hue":"#0091ff"},{"lightness":-86}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"lightness":-48},{"hue":"#ff5e00"},{"gamma":1.2},{"saturation":-23}]},{"featureType":"transit","elementType":"labels.text.stroke","stylers":[{"saturation":-64},{"hue":"#ff9100"},{"lightness":16},{"gamma":0.47},{"weight":2.7}]}];
 
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 52.231838, lng: 21.0038063},
@@ -40,34 +52,103 @@
           styles: styles
         });
 
-        var locations = [
-        	{title: 'Złote Tarasy', location: {lat: 52.230005, lng: 21.0003818}},
-        	{title: 'Uniwersytet Warszawski', location: {lat: 52.2403463, lng: 21.0164125}},
-        	{title: 'Empik', location: {lat: 52.2333044, lng: 21.0080667}},
-        	{title: 'Google', location: {lat: 52.2335813, lng: 20.9996984}},
-        	{title: 'Restauracja McDonald', location: {lat: 52.2348707, lng: 21.0059326}},
-        	{title: 'Stadion Narodowy', location: {lat: 52.2394957, lng: 21.0436022}}
-        ];
-
-        var ViewModel = function(){
-        	this.people = ko.observableArray(locations);
-        };
-
-        ko.applyBindings(new ViewModel());
-
+        //Place markers on the map
         for (var i=0; i<locations.length; i++){
+          var title = locations[i].title;
+          var location = locations[i].location;
+          var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            title: title
+          });
 
-        	var title = locations[i].title;
-        	var location = locations[i].location;
+          markers.push(marker);
+        }
+      }
 
-        	var marker = new google.maps.Marker({
-        		position: location,
-        		map: map,
-        		title: title
-        	});
+    //Locations Observable Constructor
+    var obsLocation = function(location){
+    	return {
+    		title: ko.observable(location.title),
+    		cords: ko.observable(location.location)
+    	}
+    }
+
+    var ViewModel = function(){
+
+    	var self = this;
+
+    	//Locations observable array
+        this.places = ko.observableArray([
+	    new obsLocation({
+	        title: 'Złote Tarasy',
+	        location: {lat: 52.230005, lng: 21.0003818}
+	    }),
+	    new obsLocation({
+	        title: 'Uniwersytet Warszawski', 
+	        location: {lat: 52.2403463, lng: 21.0164125}
+	    }),
+	    new obsLocation({
+			title: 'Empik', 
+			location: {lat: 52.2333044, lng: 21.0080667}
+	    }),
+	     new obsLocation({
+			title: 'Google', 
+			location: {lat: 52.2335813, lng: 20.9996984}
+	    }),
+	    new obsLocation({
+			title: 'Restauracja McDonald', 
+			location: {lat: 52.2348707, lng: 21.0059326}
+	    }),
+	    new obsLocation({
+			title: 'Stadion Narodowy', 
+			location: {lat: 52.2394957, lng: 21.0436022}
+	    })
+    ])
+
+        this.filter = ko.observable("");
+
+        //Filter places due to filter value
+        this.filteredItems = ko.computed(function(){
+        	//compare filter to places array
+        	var stringStartsWith = function (string, startsWith) {          
+   				string = string || "";
+    			if (startsWith.length > string.length)
+        			return false;
+    			return string.substring(0, startsWith.length) === startsWith;
+			};
+			//placeholder for filter observable
+        	var filter = self.filter().toLowerCase();
+        	if (!filter){
+        		return self.places();
+        	} else {
+        		//filter array
+        		return ko.utils.arrayFilter(self.places(), function(place){
+        			//compare filter to place.title and return if they match
+            		return stringStartsWith(place.title().toLowerCase(), filter);
+        		});
+        	}
+        }, self);
+
+        //hide all markers
+        this.hideListings = function(){
+        	for (var i=0; i<markers.length; i++){
+        		markers[i].setMap(null);
+        	}
         }
 
-      }
+        //show marker with proper value
+        this.showOne = function(){
+        	for (var j=0; j<markers.length; j++){
+        		value = document.getElementById("filter-text").value;
+        		if (value === locations[j].title){
+        			markers[j].setMap(map);
+        		}
+        	}
+        }
+    };
+
+    ko.applyBindings(new ViewModel());
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0&callback=initMap"
     async defer></script>
