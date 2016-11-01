@@ -18,7 +18,8 @@ html, body {
 aside {
   width: 308px;
   height: 99%;
-  background-color: #B8A064;
+  background-color: #8D363B;
+
   border: 3px solid #513F23; 
 }
 
@@ -27,6 +28,7 @@ aside {
   width: 100%;
   font-family: 'Proza Libre', sans-serif;
   font-size: 14px;
+  background-color: #7A201E;
   text-align: center;
   line-height: 45px;
 }
@@ -37,7 +39,7 @@ aside {
 #filter-box {
   height: 3%;
   width: 100%;
-  background-color: #B8A064;
+  background-color: #7A201E;
   display: flex;
 }
 
@@ -61,7 +63,7 @@ aside {
 
 #list-view {
   padding-top: 25px;
-  background-color: #A27F47;
+  background-color: #8D363B;
   font-family: 'Gentium Basic', serif;
 }
 
@@ -70,13 +72,17 @@ aside {
   margin-left: 15px;
 }
 
-li {
-  cursor: pointer;
+#list-view li:hover {
+  padding: 5px;
+  background-color: #7A201E;
+  font-weight: bold;
 }
 
-li:last-of-type{
-  padding-bottom: 25px;
+li {
+  cursor: pointer;
+  padding-bottom: 10px;
 }
+
 
 /* Info Window*/
 
@@ -98,6 +104,7 @@ li:last-of-type{
   height: 80px;
 }
 
+
 .iw-bottom-gradient {
   position: absolute;
   width: 326px;
@@ -109,3 +116,4 @@ li:last-of-type{
   background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
   background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
 }
+

@@ -24,9 +24,7 @@
         <li data-bind="text: title"></li>
       </ul>
     </div>
-    <div id="view-list">
-      
-    </div>
+
   </aside>
   <div id="map"></div>
   <script>
@@ -40,19 +38,18 @@
 	    {title: 'Empik', location: {lat: 52.2333044, lng: 21.0080667}},
         {title: 'Google', location: {lat: 52.2335813, lng: 20.9996984}},
         {title: 'Warsaw Old Town', location: {lat: 52.2500272, lng: 21.0092833}},
-        {title: 'National Stadium, Warsaw', location: {lat: 52.2394957, lng: 21.0436022}},
+        {title: 'National Stadium Warsaw', location: {lat: 52.2394957, lng: 21.0436022}},
         {title: 'Warsaw University of Technology', location: {lat: 52.2212012, lng: 21.005897}},
         {title: 'Warsaw Uprising Museum', location: {lat: 52.232324, lng: 20.9789653}},
         {title: 'Presidential Palace', location: {lat: 52.243168, lng: 21.0144238}},
-        {title: 'Fryderyk Chopin Museum', location: {lat: 52.2365397, lng: 21.0207457}}
-
-
-       ];
+        {title: 'Fryderyk Chopin Museum', location: {lat: 52.2365397, lng: 21.0207457}},
+        {title: 'Grand Theatre Warsaw', location: {lat: 52.2390616, lng: 21.0036875}}
+	];
 
     function initMap() {
 
     	//styling map a bit (:
-        var styles = [{"elementType":"geometry","stylers":[{"hue":"#ff4400"},{"saturation":-68},{"lightness":-4},{"gamma":0.72}]},{"featureType":"road","elementType":"labels.icon"},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"hue":"#0077ff"},{"gamma":3.1}]},{"featureType":"water","stylers":[{"hue":"#00ccff"},{"gamma":0.44},{"saturation":-33}]},{"featureType":"poi.park","stylers":[{"hue":"#44ff00"},{"saturation":-23}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"hue":"#007fff"},{"gamma":0.77},{"saturation":65},{"lightness":99}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"gamma":0.11},{"weight":5.6},{"saturation":99},{"hue":"#0091ff"},{"lightness":-86}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"lightness":-48},{"hue":"#ff5e00"},{"gamma":1.2},{"saturation":-23}]},{"featureType":"transit","elementType":"labels.text.stroke","stylers":[{"saturation":-64},{"hue":"#ff9100"},{"lightness":16},{"gamma":0.47},{"weight":2.7}]}];
+        var styles = [{"stylers":[{"hue":"#dd0d0d"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]}];
 
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 52.231838, lng: 21.0038063},
@@ -98,8 +95,12 @@
           markers.push(marker);
         }
 
+
+
         function makeInfoWindow(marker, window){
         	// Check to make sure the infowindow is not already opened on this marker.
+
+
         	if(window.marker != marker){
         		window.marker = marker;
 
@@ -119,10 +120,7 @@
 	        	withCredentials: false
 	      		} 
 	        });        		
-
-        		
-        		
-
+        		        		
         		// Make sure the marker property is cleared if the infowindow is closed.
         		window.addListener('closeclick', function(){
         			window.setMarker(null);
@@ -150,6 +148,7 @@
           	new google.maps.Size(21,34));
         	return markerImage;
    		}
+
     }
 
     //Locations Observable Constructor
@@ -187,7 +186,7 @@
         	location: {lat: 52.2500272, lng: 21.0092833},
 	    }),
 	    new obsLocation({
-			title: 'National Stadium, Warsaw',
+			title: 'National Stadium Warsaw',
 			location: {lat: 52.2394957, lng: 21.0436022}
 	    }),
 	   	new obsLocation({
@@ -205,6 +204,10 @@
 	   	new obsLocation({
 	   		title: 'Fryderyk Chopin Museum', 
 	   		location: {lat: 52.2365397, lng: 21.0207457}
+	    }),
+	    new obsLocation({
+	    	title: 'Grand Theatre Warsaw', 
+	    	location: {lat: 52.2390616, lng: 21.0036875}
 	    })
     ])
         //holds #filter-text value
