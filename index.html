@@ -36,15 +36,15 @@
 
     var locations = [
 	    {title: 'Złote Tarasy', location: {lat: 52.230005, lng: 21.0003818}},
-	    {title: 'Uniwersytet Warszawski', location: {lat: 52.2403463, lng: 21.0164125}},
+	    {title: 'University of Warsaw', location: {lat: 52.2403463, lng: 21.0164125}},
 	    {title: 'Empik', location: {lat: 52.2333044, lng: 21.0080667}},
         {title: 'Google', location: {lat: 52.2335813, lng: 20.9996984}},
-        {title: 'Restauracja McDonald', location: {lat: 52.2348707, lng: 21.0059326}},
-        {title: 'Stadion Narodowy', location: {lat: 52.2394957, lng: 21.0436022}},
-        {title: 'Politechnika Warszawska', location: {lat: 52.2212012, lng: 21.005897}},
-        {title: 'Muzeum Powstania Warszawskiego', location: {lat: 52.232324, lng: 20.9789653}},
-        {title: 'Muzeum Narodowe w Warszawie', location: {lat: 52.2315987, lng: 21.02261}},
-        {title: 'Muzeum Fryderyka Chopina', location: {lat: 52.2365397, lng: 21.0207457}}
+        {title: 'Warsaw Old Town', location: {lat: 52.2500272, lng: 21.0092833}},
+        {title: 'National Stadium, Warsaw', location: {lat: 52.2394957, lng: 21.0436022}},
+        {title: 'Warsaw University of Technology', location: {lat: 52.2212012, lng: 21.005897}},
+        {title: 'Warsaw Uprising Museum', location: {lat: 52.232324, lng: 20.9789653}},
+        {title: 'Presidential Palace', location: {lat: 52.243168, lng: 21.0144238}},
+        {title: 'Fryderyk Chopin Museum', location: {lat: 52.2365397, lng: 21.0207457}}
 
 
        ];
@@ -61,7 +61,6 @@
         });
 
         var infoWindow = new google.maps.InfoWindow();
-        console.log(infoWindow);
 
         //Create a default icon
         var defaultIcon = makeMarkerIcon("6E5A79");
@@ -103,8 +102,26 @@
         	// Check to make sure the infowindow is not already opened on this marker.
         	if(window.marker != marker){
         		window.marker = marker;
-        		window.setContent("<div>"+ marker.title +"</div>");
+
+        	var description = ""; 
+
+	    	$.ajax({
+	        	url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search="+marker.title+"",
+	        	type: "GET",
+	        	dataType: "jsonp",
+	        	success: function (data) {
+	        	console.log(data);
+	        	description = "<div id='iw-container'>" +"<div class='iw-title'><strong>"+ data[1][0] +"</strong></div>" + "<p>" + data[2][0] +"<p>" + "</div><div class='iw-bottom-gradient'></div>";
+	        	window.setContent(description);
         		window.open(map, marker);
+	  		}, 
+	      	xhrFields: {
+	        	withCredentials: false
+	      		} 
+	        });        		
+
+        		
+        		
 
         		// Make sure the marker property is cleared if the infowindow is closed.
         		window.addListener('closeclick', function(){
@@ -154,7 +171,7 @@
 	        location: {lat: 52.230005, lng: 21.0003818}
 	    }),
 	    new obsLocation({
-	        title: 'Uniwersytet Warszawski', 
+	        title: 'University of Warsaw', 
 	        location: {lat: 52.2403463, lng: 21.0164125}
 	    }),
 	    new obsLocation({
@@ -166,27 +183,27 @@
 			location: {lat: 52.2335813, lng: 20.9996984}
 	    }),
 	    new obsLocation({
-			title: 'Restauracja McDonald', 
-			location: {lat: 52.2348707, lng: 21.0059326}
+        	title: 'Warsaw Old Town', 
+        	location: {lat: 52.2500272, lng: 21.0092833},
 	    }),
 	    new obsLocation({
-			title: 'Stadion Narodowy', 
+			title: 'National Stadium, Warsaw',
 			location: {lat: 52.2394957, lng: 21.0436022}
 	    }),
 	   	new obsLocation({
-	   		title: 'Politechnika Warszawska', 
+	   		title: 'Warsaw University of Technology', 
 	   		location: {lat: 52.2212012, lng: 21.005897}
 	    }),
 	   	new obsLocation({
-	   		title: 'Muzeum Powstania Warszawskiego', 
+	   		title: 'Warsaw Uprising Museum', 
 	   		location: {lat: 52.232324, lng: 20.9789653}
 	    }),
 	   	new obsLocation({
-	   		title: 'Muzeum Narodowe w Warszawie', 
-	   		location: {lat: 52.2315987, lng: 21.02261}
+	   		title: 'Presidential Palace', 
+	   		location: {lat: 52.243168, lng: 21.0144238}
 	    }),
 	   	new obsLocation({
-	   		title: 'Muzeum Fryderyka Chopina', 
+	   		title: 'Fryderyk Chopin Museum', 
 	   		location: {lat: 52.2365397, lng: 21.0207457}
 	    })
     ])
@@ -254,6 +271,9 @@
     };
 
     ko.applyBindings(new ViewModel());
+
+
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0&callback=initMap"
     async defer></script>
