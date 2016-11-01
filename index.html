@@ -39,7 +39,13 @@
 	    {title: 'Empik', location: {lat: 52.2333044, lng: 21.0080667}},
         {title: 'Google', location: {lat: 52.2335813, lng: 20.9996984}},
         {title: 'Restauracja McDonald', location: {lat: 52.2348707, lng: 21.0059326}},
-        {title: 'Stadion Narodowy', location: {lat: 52.2394957, lng: 21.0436022}}
+        {title: 'Stadion Narodowy', location: {lat: 52.2394957, lng: 21.0436022}},
+        {title: 'Politechnika Warszawska', location: {lat: 52.2212012, lng: 21.005897}},
+        {title: 'Muzeum Powstania Warszawskiego', location: {lat: 52.232324, lng: 20.9789653}},
+        {title: 'Muzeum Narodowe w Warszawie', location: {lat: 52.2315987, lng: 21.02261}},
+        {title: 'Muzeum Fryderyka Chopina', location: {lat: 52.2365397, lng: 21.0207457}}
+
+
        ];
 
     function initMap() {
@@ -103,6 +109,22 @@
 	    new obsLocation({
 			title: 'Stadion Narodowy', 
 			location: {lat: 52.2394957, lng: 21.0436022}
+	    }),
+	   	new obsLocation({
+	   		title: 'Politechnika Warszawska', 
+	   		location: {lat: 52.2212012, lng: 21.005897}
+	    }),
+	   	new obsLocation({
+	   		title: 'Muzeum Powstania Warszawskiego', 
+	   		location: {lat: 52.232324, lng: 20.9789653}
+	    }),
+	   	new obsLocation({
+	   		title: 'Muzeum Narodowe w Warszawie', 
+	   		location: {lat: 52.2315987, lng: 21.02261}
+	    }),
+	   	new obsLocation({
+	   		title: 'Muzeum Fryderyka Chopina', 
+	   		location: {lat: 52.2365397, lng: 21.0207457}
 	    })
     ])
 
@@ -119,6 +141,7 @@
 			};
 			//placeholder for filter observable
         	var filter = self.filter().toLowerCase();
+        	//return places if filter is empty
         	if (!filter){
         		return self.places();
         	} else {
@@ -146,6 +169,23 @@
         		}
         	}
         }
+
+        this.displayMarkers = function(){
+        	if (self.filter() != "")
+        	self.hideListings();
+        	for (var i=0; i<markers.length; i++){
+        		for (var j=0; j<self.filteredItems().length; j++){
+        			if (markers[i].title == self.filteredItems()[j].title()){
+        				console.log("zgadza sie chuju");
+        				markers[i].setMap(map);
+        			}
+        		}
+        	}
+        }
+
+        document.getElementById("filter-text").addEventListener("keyup", function(){
+        	self.displayMarkers();
+        });
     };
 
     ko.applyBindings(new ViewModel());
