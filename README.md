@@ -1,5 +1,6 @@
 #Neighborhood Map
 Udacity neighborhood map project
+This is the old version of map project. In order to see new one, switch to master branch.
 
 ## How to run?
 
