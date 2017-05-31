@@ -1,6 +1,9 @@
 #Neighborhood Map
-Udacity neighborhood map project
+
+Udacity neighborhood map project.
+
 This is the old version of map project. In order to see new one, switch to master branch.
+Old Map [[live version]](http://kamiljarzab.pl/Projekty/Neighborhood%20Map/)
 
 ## How to run?
 
