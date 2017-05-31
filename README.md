@@ -1,6 +1,8 @@
 #Neighborhood Map
 Udacity neighborhood map project
+This is the new version of the map. I am creating it to compare my progress. The old version was made at the very beggining of my front-end path. Here you can check [[old version]](http://kamiljarzab.pl/Projekty/Neighborhood%20Map/)
 
+New version will be avaliable soon.
 ## How to run?
 
 1. Download zip file from GIT.
