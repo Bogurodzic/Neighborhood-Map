@@ -9,7 +9,7 @@ New version will be avaliable soon.
 2. Unzip the downloaded file.
 3. Run "index.html" in your browser.
 
-## Functions of the site
+## Site functionality
 
 * Filtered search engine of popular Warsaw locations.
 * Accessing to info about marks by choosing them from the list or from the map.
