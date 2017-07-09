@@ -65,6 +65,7 @@ gulp.task("images", function(){
 gulp.task("watch", function(){
 
 	gulp.watch("src/scss/**/*.scss", ["sass"]);
+	gulp.watch("src/scss/*.scss", ["sass"]);
 	gulp.watch("src/css/*.css", ["autoprefixer"]);
 	gulp.watch(["src/css/*.css", "src/index.html", "src/js/*.js"], browserSync.reload);
 
