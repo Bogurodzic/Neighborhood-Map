@@ -74,6 +74,7 @@ var ko = __webpack_require__(2);
 console.log($);
 
 var GoogleMapsLoader = __webpack_require__(3); // only for common js environments
+GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
 
 GoogleMapsLoader.load(function(google) {
     new google.maps.Map(document.getElementById('map'), {

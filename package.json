@@ -1,7 +1,7 @@
 {
-  "name": "vintagecare",
+  "name": "Neighboorhood-Map",
   "version": "1.0.0",
-  "description": "vintagecare landing page",
+  "description": "Google maps api app",
   "main": "gulpfile.js",
   "dependencies": {
     "del": "^2.2.2",

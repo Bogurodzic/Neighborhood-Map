@@ -5,6 +5,7 @@ var ko = require("knockout");
 console.log($);
 
 var GoogleMapsLoader = require('google-maps'); // only for common js environments
+GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
 
 GoogleMapsLoader.load(function(google) {
     new google.maps.Map(document.getElementById('map'), {
