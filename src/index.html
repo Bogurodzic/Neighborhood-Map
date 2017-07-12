@@ -7,24 +7,13 @@
   <title>Neighborhood Map</title>
 </head>
 <body>
-  <aside>
-   <div id="title">My Favourite Locations</div>
-   <div id="filter-box">
-     <div id="filter-text-area"><input id="filter-text" type="text" placeholder="Filter list here." data-bind="value: filter, valueUpdate: 'afterkeydown'"></div>
-     <div id="filter-area"><input id="filter" type="button" value="Filter" data-bind="click: hideListings"></div>
-   </div>
-   <div id="list-view">
-     <ul id="list-filtered" data-bind="foreach: filteredItems">
-       <li data-bind="text: title"></li>
-     </ul>
-   </div>
-
-   </aside>
-   <div id="map"></div>
-
-    <script src="js/bundle.js"></script>
-   <!--  <script src="js/map.js"></script> -->
-	 <!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0&callback=initMap"
-    async defer></script> -->
+  <main>
+    <div class="info">
+      <div class="info-input"></div>
+      <div class="info-place"></div>
+    </div>
+    <div id="map" class="map"></div>
+  </main>
+  <script src="js/bundle.js"></script>
 </body>
 </html>
