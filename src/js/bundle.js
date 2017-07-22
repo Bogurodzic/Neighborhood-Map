@@ -77,15 +77,10 @@ var GoogleMapsLoader = __webpack_require__(3); // only for common js environment
 GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
 
 GoogleMapsLoader.load(function(google) {
-    new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: {lat: -33, lng: 151},
-          mapTypeControl: true,
-          mapTypeControlOptions: {
-            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-            mapTypeIds: ['roadmap', 'terrain']
-          }
-        });
+  new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+      });
 });
 
 
