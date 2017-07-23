@@ -1,8 +1,9 @@
 @import "vendor/reset";
+@import "vendor/vars";
 @import "general";
 @import "blocks/wrapper";
 @import "blocks/map";
 @import "blocks/info";
 @import "blocks/info-title";
-@import "blocks/info-input";
-@import "blocks/info-place";
+@import "blocks/info-search";
+@import "blocks/place-list";

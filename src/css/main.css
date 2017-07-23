@@ -61,7 +61,35 @@ body {
 
 .info {
   width: 20%;
-  background: red; }
+  background: #9FC462; }
 
-.info-title__item {
-  color: green; }
+.info-title {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 25px;
+  box-sizing: border-box;
+  background: #6b8c34; }
+  .info-title__item {
+    color: black;
+    font-family: Arial;
+    font-weight: bold; }
+
+.info-search {
+  width: 100%; }
+  .info-search__item {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box; }
+
+.place-list {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box; }
+  .place-list__item {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box; }
+    .place-list__item:hover {
+      cursor: pointer;
+      background: #4e6627;
+      color: white; }

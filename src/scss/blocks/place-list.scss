@@ -1,0 +1,17 @@
+.place-list {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+
+  &__item {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+
+    &:hover {
+      cursor: pointer;
+      background: darken($lightGreen, 30%);
+      color: white;
+    }
+  }
+}

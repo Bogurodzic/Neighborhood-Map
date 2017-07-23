@@ -1,8 +1,13 @@
 .info-title {
-
-
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 25px;
+  box-sizing: border-box;
+  background: darken($lightGreen, 20%);
 
   &__item {
-    color: green;
+    color: black;
+    font-family: $font;
+    font-weight: bold;
   }
 }
