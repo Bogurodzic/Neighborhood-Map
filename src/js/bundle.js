@@ -67,22 +67,23 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 var $ = __webpack_require__(1);
 var ko = __webpack_require__(2);
-
 
 console.log($);
 
 var GoogleMapsLoader = __webpack_require__(3); // only for common js environments
 GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
 
-GoogleMapsLoader.load(function(google) {
-  new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
+GoogleMapsLoader.load(function (google) {
+      new google.maps.Map(document.getElementById('map'), {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8
       });
 });
-
 
 /***/ }),
 /* 1 */
