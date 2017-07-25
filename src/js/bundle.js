@@ -72,18 +72,7 @@
 
 var $ = __webpack_require__(1);
 var ko = __webpack_require__(2);
-
-console.log($);
-
-var GoogleMapsLoader = __webpack_require__(3); // only for common js environments
-GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
-
-GoogleMapsLoader.load(function (google) {
-      new google.maps.Map(document.getElementById('map'), {
-            center: { lat: -34.397, lng: 150.644 },
-            zoom: 8
-      });
-});
+var map = __webpack_require__(3);
 
 /***/ }),
 /* 1 */
@@ -16290,6 +16279,24 @@ ko.exportSymbol('nativeTemplateEngine', ko.nativeTemplateEngine);
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var GoogleMapsLoader = __webpack_require__(4);
+
+GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
+
+GoogleMapsLoader.load(function (google) {
+      new google.maps.Map(document.getElementById('map'), {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8
+      });
+});
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root, factory) {
