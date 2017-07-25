@@ -1,10 +1,11 @@
 var GoogleMapsLoader = require('google-maps');
+var viewModel = require("./viewModel.js");
 
 GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
 
 GoogleMapsLoader.load(function(google) {
   new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
+        center: {lat: 52.231838, lng: 21.0038063},
+        zoom: 13
       });
 });

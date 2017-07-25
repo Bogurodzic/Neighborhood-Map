@@ -15,9 +15,8 @@
       <div class="info-search">
         <input class="info-search__item" type="text" name="searched-place" placeholder="What place are you looking for?">
       </div>
-      <ul class="place-list">
-        <li class="place-list__item">place 1</li>
-        <li class="place-list__item">place 2</li>
+      <ul class="place-list" data-bind="foreach: markerList">
+        <li class="place-list__item" data-bind="text: name"></li>
       </ul>
     </div>
     <div id="map" class="map"></div>
