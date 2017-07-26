@@ -8,11 +8,11 @@ GoogleMapsLoader.load(function(google) {
   let map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 52.231838, lng: 21.0038063},
         zoom: 13
-      });
+  });
 
-  let placeForMarkers = viewModel.placeForMarkers();
+  let placesForMarkers = viewModel.placesForMarkers();
 
-  placeForMarkers.forEach(function(place, index){
+  placesForMarkers.forEach(function(place, index){
     let marker = new google.maps.Marker({
       position: {lat: place.lat, lng: place.lng},
       map: map,
