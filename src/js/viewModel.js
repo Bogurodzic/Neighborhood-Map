@@ -1,7 +1,7 @@
 var ko = require("knockout");
 
-var viewModel = {
-  markerList: ko.observableArray([
+var myViewModel = {
+  placeForMarkers: ko.observableArray([
       { name: "Pałac Kultury", lat: 52.231838, lng: 21.0038063 },
       { name: "Muzeum Narodowe", lat: 52.2315987, lng: 21.02261 },
       { name: "Muzeum Powstania Warszawskiego", lat: 52.2323289, lng: 20.9786972 },
@@ -11,4 +11,7 @@ var viewModel = {
   ])
 }
 
-ko.applyBindings(viewModel);
+ko.applyBindings(myViewModel);
+
+
+module.exports = myViewModel;

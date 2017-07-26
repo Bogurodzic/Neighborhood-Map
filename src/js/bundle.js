@@ -10346,10 +10346,20 @@ var viewModel = __webpack_require__(4);
 GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
 
 GoogleMapsLoader.load(function (google) {
-      new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 52.231838, lng: 21.0038063 },
-            zoom: 13
-      });
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 52.231838, lng: 21.0038063 },
+    zoom: 13
+  });
+
+  var placeForMarkers = viewModel.placeForMarkers();
+
+  placeForMarkers.forEach(function (place, index) {
+    var marker = new google.maps.Marker({
+      position: { lat: place.lat, lng: place.lng },
+      map: map,
+      title: place.name
+    });
+  });
 });
 
 /***/ }),
@@ -10590,11 +10600,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root
 
 var ko = __webpack_require__(5);
 
-var viewModel = {
-    markerList: ko.observableArray([{ name: "Pałac Kultury", lat: 52.231838, lng: 21.0038063 }, { name: "Muzeum Narodowe", lat: 52.2315987, lng: 21.02261 }, { name: "Muzeum Powstania Warszawskiego", lat: 52.2323289, lng: 20.9786972 }, { name: "Stare Miasto", lat: 52.2500272, lng: 21.0092832 }, { name: "Łazienki Królewskie", lat: 52.2151532, lng: 21.0328105 }, { name: "PGE Narodowy", lat: 52.2394957, lng: 21.0436022 }])
+var myViewModel = {
+    placeForMarkers: ko.observableArray([{ name: "Pałac Kultury", lat: 52.231838, lng: 21.0038063 }, { name: "Muzeum Narodowe", lat: 52.2315987, lng: 21.02261 }, { name: "Muzeum Powstania Warszawskiego", lat: 52.2323289, lng: 20.9786972 }, { name: "Stare Miasto", lat: 52.2500272, lng: 21.0092832 }, { name: "Łazienki Królewskie", lat: 52.2151532, lng: 21.0328105 }, { name: "PGE Narodowy", lat: 52.2394957, lng: 21.0436022 }])
 };
 
-ko.applyBindings(viewModel);
+ko.applyBindings(myViewModel);
+
+module.exports = myViewModel;
 
 /***/ }),
 /* 5 */
