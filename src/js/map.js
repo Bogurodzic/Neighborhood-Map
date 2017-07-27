@@ -1,13 +1,11 @@
 const GoogleMapsLoader = require('google-maps');
-var viewModel = require("./viewModel.js");
+let viewModel = require("./viewModel.js");
 
-let map;
-let markers;
 
 GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
 
 GoogleMapsLoader.load(function(google) {
-  map = new google.maps.Map(document.getElementById('map'), {
+  viewModel.map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 52.231838, lng: 21.0038063},
         zoom: 13
   });
@@ -17,8 +15,10 @@ GoogleMapsLoader.load(function(google) {
   allPlaces.forEach(function(place, index){
     let marker = new google.maps.Marker({
       position: {lat: place.lat, lng: place.lng},
-      map: map,
+      map: viewModel.map,
       title: place.name
     });
+    viewModel.markers.push(marker);
   })
+  console.log(viewModel.markers())
 });

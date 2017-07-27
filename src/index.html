@@ -13,7 +13,7 @@
         <h2 class="info-title__item">My favourite places in Warsaw</h2>
       </div>
       <div class="info-search">
-        <input data-bind="textInput: filterPlaces()" class="info-search__item" id="place-name" type="text" name="searched-place" placeholder="What place are you looking for?" >
+        <input data-bind="textInput: updateMarkers()" class="info-search__item" id="place-name" type="text" name="searched-place" placeholder="What place are you looking for?" >
       </div>
       <ul class="place-list" data-bind="foreach: filteredPlaces">
         <li data-bind="text: name" class="place-list__item"></li>

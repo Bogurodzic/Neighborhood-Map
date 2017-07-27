@@ -1,7 +1,8 @@
 const ko = require("knockout");
 
-let myViewModel = {
 
+let myViewModel = {
+  map: null,
   //All markers
   allPlaces: ko.observableArray([
       { name: "Pałac Kultury", lat: 52.231838, lng: 21.0038063 },
@@ -15,11 +16,18 @@ let myViewModel = {
   //List of actual filtered placesp
   filteredPlaces: ko.observableArray([]),
 
+  //List of all markers
+  markers: ko.observableArray([]),
+
+  updateMarkers: function(){
+    myViewModel.filterPlaces();
+    if(map){
+      myViewModel.filterMarkers();
+    }
+  },
+
   filterPlaces: function(){
-    lookForSearchedPlace(myViewModel.allPlaces(), getSearchedPlaceName());
-    function getSearchedPlaceName(){
-      return document.getElementById("place-name").value;
-    };
+    lookForSearchedPlace(myViewModel.allPlaces(), myViewModel.getSearchedPlaceName());
 
     function lookForSearchedPlace(allPlaces, placeName){
       placeName = new RegExp(placeName)
@@ -27,15 +35,35 @@ let myViewModel = {
       myViewModel.filteredPlaces.removeAll();
 
       allPlaces.forEach(function(place){
-        isPlace(place);
+        checkPlace(place);
       });
       //Looks for markers which match with input value
-      function isPlace(place){
+      function checkPlace(place){
         if (placeName.test(place.name)===true){
           myViewModel.filteredPlaces.push(place);
         }
       }
     }
+  },
+
+  filterMarkers: function(){
+    myViewModel.markers().forEach(function(marker, index){
+      //Create new RegExp according to actual searched place name
+      let placeName = new RegExp(myViewModel.getSearchedPlaceName());
+      checkMarker(marker, placeName)
+    });
+
+    function checkMarker(marker, placeName){
+      if (placeName.test(marker.title)){
+        marker.setMap(myViewModel.map);
+      } else {
+        marker.setMap(null);
+      }
+    }
+  },
+
+  getSearchedPlaceName: function(){
+    return document.getElementById("place-name").value;
   }
 
 }

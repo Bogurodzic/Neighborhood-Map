@@ -10343,13 +10343,10 @@ return jQuery;
 var GoogleMapsLoader = __webpack_require__(3);
 var viewModel = __webpack_require__(4);
 
-var map = void 0;
-var markers = void 0;
-
 GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
 
 GoogleMapsLoader.load(function (google) {
-  map = new google.maps.Map(document.getElementById('map'), {
+  viewModel.map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 52.231838, lng: 21.0038063 },
     zoom: 13
   });
@@ -10359,10 +10356,12 @@ GoogleMapsLoader.load(function (google) {
   allPlaces.forEach(function (place, index) {
     var marker = new google.maps.Marker({
       position: { lat: place.lat, lng: place.lng },
-      map: map,
+      map: viewModel.map,
       title: place.name
     });
+    viewModel.markers.push(marker);
   });
+  console.log(viewModel.markers());
 });
 
 /***/ }),
@@ -10604,18 +10603,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root
 var ko = __webpack_require__(5);
 
 var myViewModel = {
-
+  map: null,
   //All markers
   allPlaces: ko.observableArray([{ name: "Pałac Kultury", lat: 52.231838, lng: 21.0038063 }, { name: "Muzeum Narodowe", lat: 52.2315987, lng: 21.02261 }, { name: "Muzeum Powstania Warszawskiego", lat: 52.2323289, lng: 20.9786972 }, { name: "Stare Miasto", lat: 52.2500272, lng: 21.0092832 }, { name: "Łazienki Królewskie", lat: 52.2151532, lng: 21.0328105 }, { name: "PGE Narodowy", lat: 52.2394957, lng: 21.0436022 }]),
 
   //List of actual filtered placesp
   filteredPlaces: ko.observableArray([]),
 
+  //List of all markers
+  markers: ko.observableArray([]),
+
+  updateMarkers: function updateMarkers() {
+    myViewModel.filterPlaces();
+    if (map) {
+      myViewModel.filterMarkers();
+    }
+  },
+
   filterPlaces: function filterPlaces() {
-    lookForSearchedPlace(myViewModel.allPlaces(), getSearchedPlaceName());
-    function getSearchedPlaceName() {
-      return document.getElementById("place-name").value;
-    };
+    lookForSearchedPlace(myViewModel.allPlaces(), myViewModel.getSearchedPlaceName());
 
     function lookForSearchedPlace(allPlaces, placeName) {
       placeName = new RegExp(placeName);
@@ -10623,15 +10629,35 @@ var myViewModel = {
       myViewModel.filteredPlaces.removeAll();
 
       allPlaces.forEach(function (place) {
-        isPlace(place);
+        checkPlace(place);
       });
       //Looks for markers which match with input value
-      function isPlace(place) {
+      function checkPlace(place) {
         if (placeName.test(place.name) === true) {
           myViewModel.filteredPlaces.push(place);
         }
       }
     }
+  },
+
+  filterMarkers: function filterMarkers() {
+    myViewModel.markers().forEach(function (marker, index) {
+      //Create new RegExp according to actual searched place name
+      var placeName = new RegExp(myViewModel.getSearchedPlaceName());
+      checkMarker(marker, placeName);
+    });
+
+    function checkMarker(marker, placeName) {
+      if (placeName.test(marker.title)) {
+        marker.setMap(myViewModel.map);
+      } else {
+        marker.setMap(null);
+      }
+    }
+  },
+
+  getSearchedPlaceName: function getSearchedPlaceName() {
+    return document.getElementById("place-name").value;
   }
 
 };
