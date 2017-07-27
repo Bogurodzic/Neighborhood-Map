@@ -3,7 +3,7 @@ const ko = require("knockout");
 let myViewModel = {
 
   //All markers
-  placesForMarkers: ko.observableArray([
+  allPlaces: ko.observableArray([
       { name: "Pałac Kultury", lat: 52.231838, lng: 21.0038063 },
       { name: "Muzeum Narodowe", lat: 52.2315987, lng: 21.02261 },
       { name: "Muzeum Powstania Warszawskiego", lat: 52.2323289, lng: 20.9786972 },
@@ -12,27 +12,27 @@ let myViewModel = {
       { name: "PGE Narodowy", lat: 52.2394957, lng: 21.0436022 },
   ]),
 
-  //List of actual markers on the map
-  markers: ko.observableArray([]),
+  //List of actual filtered placesp
+  filteredPlaces: ko.observableArray([]),
 
   filterPlaces: function(){
-    lookForSearchedPlace(myViewModel.placesForMarkers(), getSearchedPlaceName());
+    lookForSearchedPlace(myViewModel.allPlaces(), getSearchedPlaceName());
     function getSearchedPlaceName(){
       return document.getElementById("place-name").value;
     };
 
-    function lookForSearchedPlace(placesForMarkers, placeName){
+    function lookForSearchedPlace(allPlaces, placeName){
       placeName = new RegExp(placeName)
-      //Reset markers
-      myViewModel.markers.removeAll();
+      //Reset filtered places
+      myViewModel.filteredPlaces.removeAll();
 
-      placesForMarkers.forEach(function(place){
+      allPlaces.forEach(function(place){
         isPlace(place);
       });
       //Looks for markers which match with input value
       function isPlace(place){
         if (placeName.test(place.name)===true){
-          myViewModel.markers.push(place);
+          myViewModel.filteredPlaces.push(place);
         }
       }
     }
