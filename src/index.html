@@ -16,7 +16,7 @@
         <input data-bind="textInput: updateMarkers()" class="info-search__item" id="place-name" type="text" name="searched-place" placeholder="What place are you looking for?" >
       </div>
       <ul class="place-list" data-bind="foreach: filteredPlaces">
-        <li data-bind="text: name" class="place-list__item"></li>
+        <li data-bind="text: name, event: { click: $parent.showClickedPlace }" class="place-list__item"></li>
       </ul>
     </div>
     <div id="map" class="map"></div>
