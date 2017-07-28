@@ -50,12 +50,12 @@ function createInfoWindow(){
 
 function addListeners(marker){
   marker.addListener('click', function() {
-    closeAllMarkers();
+    closeAllInfoWindow();
     marker.infoWindow.open(map, marker);
   });
 }
 
-function closeAllMarkers(){
+function closeAllInfoWindow(){
   viewModel.markers().forEach(function(marker){
     marker.infoWindow.close(map, marker);
   })

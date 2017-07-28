@@ -21,54 +21,77 @@ let myViewModel = {
 
   updateMarkers: function(){
     myViewModel.filterPlaces();
-    if(map){
-      myViewModel.filterMarkers();
-    }
+    myViewModel.filterMarkers();
   },
 
   filterPlaces: function(){
-    lookForSearchedPlace(myViewModel.allPlaces(), myViewModel.getSearchedPlaceName());
-
-    function lookForSearchedPlace(allPlaces, placeName){
-      placeName = new RegExp(placeName)
-      //Reset filtered places
-      myViewModel.filteredPlaces.removeAll();
-
-      allPlaces.forEach(function(place){
-        checkPlace(place);
-      });
-      //Looks for markers which match with input value
-      function checkPlace(place){
-        if (placeName.test(place.name)===true){
-          myViewModel.filteredPlaces.push(place);
-        }
-      }
-    }
+    lookForSearchedPlace(myViewModel.allPlaces(), getSearchedPlaceName());
   },
 
   filterMarkers: function(){
     myViewModel.markers().forEach(function(marker, index){
       //Create new RegExp according to actual searched place name
-      let placeName = new RegExp(myViewModel.getSearchedPlaceName());
-      checkMarker(marker, placeName)
+      let placeName = new RegExp(getSearchedPlaceName());
+      changeMarkerVisibility(marker, placeName)
     });
-
-    function checkMarker(marker, placeName){
-      if (placeName.test(marker.title)){
-        marker.setMap(myViewModel.map);
-      } else {
-        marker.setMap(null);
-      }
-    }
-  },
-
-  getSearchedPlaceName: function(){
-    return document.getElementById("place-name").value;
   }
 
 }
 
 ko.applyBindings(myViewModel);
 
+function lookForSearchedPlace(allPlaces, placeName){
+  placeName = new RegExp(placeName)
+  resetFilteredPlaces();
+  checkAllPlaces(allPlaces, placeName);
+}
+
+function resetFilteredPlaces(){
+  myViewModel.filteredPlaces.removeAll();
+}
+
+function checkAllPlaces(allPlaces, placeName){
+  allPlaces.forEach(function(place){
+    checkPlace(place, placeName);
+  });
+}
+
+function checkPlace(place, placeName){
+  if (placeName.test(place.name)===true){
+    addToFilteredPlaces(place);
+  }
+}
+
+function addToFilteredPlaces(place){
+  myViewModel.filteredPlaces.push(place);
+}
+
+function changeMarkerVisibility(marker, placeName){
+  if (checkName(marker, placeName)){
+    showMarker(marker);
+  } else {
+    hideMarker(marker);
+  }
+}
+
+function checkName(marker, placeName){
+  if(placeName.test(marker.title)){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function showMarker(marker){
+  marker.setMap(myViewModel.map);
+}
+
+function hideMarker(marker){
+  marker.setMap(null);
+}
+
+function getSearchedPlaceName(){
+  return document.getElementById("place-name").value;
+}
 
 module.exports = myViewModel;
