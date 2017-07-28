@@ -1,4 +1,12 @@
 .info {
   width: 20%;
   background: $lightGreen;
+
+  @media screen and (max-width: 1100px) {
+    min-width: 250px;
+  }
+
+  @media screen and (max-width: 700px) {
+    min-width: 180px;
+  }
 }
