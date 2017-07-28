@@ -20,6 +20,8 @@ let myViewModel = {
   markers: ko.observableArray([]),
 
   updateMarkers: function(){
+    stopAnimateAll();
+    closeAllInfoWindow();
     myViewModel.filterPlaces();
     myViewModel.filterMarkers();
   },
@@ -54,6 +56,7 @@ function lookForClickedPlace(allMarkers, searchedPlaceName){
     if(checkPlace(marker.title, searchedPlaceName)){
       stopAnimateAll();
       closeAllInfoWindow();
+      addInfoWindowEvents(marker)
       openInfoWindow(marker);
       animateMarker(marker);
     }
@@ -138,6 +141,12 @@ function closeAllInfoWindow(marker){
   myViewModel.markers().forEach(function(marker){
       closeInfoWindow(marker);
   })
+}
+
+function addInfoWindowEvents(marker){
+  google.maps.event.addListener(marker.infoWindow, "closeclick", function() {
+      stopAnimateMarker(marker);
+  });
 }
 
 function getSearchedPlaceName(){
