@@ -5,19 +5,19 @@ let myViewModel = {
   map: null,
   //All markers
   allPlaces: ko.observableArray([
-      { name: "Pałac Kultury", lat: 52.231838, lng: 21.0038063 },
-      { name: "Muzeum Narodowe", lat: 52.2315987, lng: 21.02261 },
-      { name: "Muzeum Powstania Warszawskiego", lat: 52.2323289, lng: 20.9786972 },
-      { name: "Stare Miasto", lat: 52.2500272, lng: 21.0092832 },
-      { name: "Łazienki Królewskie", lat: 52.2151532, lng: 21.0328105 },
-      { name: "PGE Narodowy", lat: 52.2394957, lng: 21.0436022 },
+      { name: "Palace of Culture and Science", lat: 52.231838, lng: 21.0038063 },
+      { name: "National Museum, Warsaw", lat: 52.2315987, lng: 21.02261 },
+      { name: "Warsaw Uprising Museum", lat: 52.2323289, lng: 20.9786972 },
+      { name: "Warsaw Old Town", lat: 52.2500272, lng: 21.0092832 },
+      { name: "Łazienki Palace", lat: 52.2151532, lng: 21.0328105 },
+      { name: "National Stadium, Warsaw", lat: 52.2394957, lng: 21.0436022 },
   ]),
 
   //List of actual filtered placesp
   filteredPlaces: ko.observableArray([]),
 
   //List of all markers
-  markers: ko.observableArray([]),
+  markers: [],
 
   updateMarkers: function(){
     stopAnimateAll();
@@ -31,7 +31,7 @@ let myViewModel = {
   },
 
   filterMarkers: function(){
-    myViewModel.markers().forEach(function(marker, index){
+    myViewModel.markers.forEach(function(marker, index){
       //Create new RegExp according to actual searched place name
       let searchedPlaceName = new RegExp(getSearchedPlaceName());
       changeMarkerVisibility(marker, searchedPlaceName)
@@ -40,7 +40,7 @@ let myViewModel = {
 
   showClickedPlace: function(place){
     let searchedPlaceName = new RegExp(place.name)
-    lookForClickedPlace(myViewModel.markers(), searchedPlaceName);
+    lookForClickedPlace(myViewModel.markers, searchedPlaceName);
   }
 
 }
@@ -110,7 +110,7 @@ function hideMarker(marker){
 }
 
 function hideAllMarkers(){
-  myViewModel.markers().forEach(function(marker){
+  myViewModel.markers.forEach(function(marker){
       marker.setMap(null);
   })
 }
@@ -124,7 +124,7 @@ function stopAnimateMarker(marker){
 }
 
 function stopAnimateAll(){
-  myViewModel.markers().forEach(function(marker){
+  myViewModel.markers.forEach(function(marker){
       stopAnimateMarker(marker);
   })
 }
@@ -138,7 +138,7 @@ function closeInfoWindow(marker){
 }
 
 function closeAllInfoWindow(marker){
-  myViewModel.markers().forEach(function(marker){
+  myViewModel.markers.forEach(function(marker){
       closeInfoWindow(marker);
   })
 }

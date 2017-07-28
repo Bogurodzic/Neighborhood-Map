@@ -1,3 +1,4 @@
+const $ = require("jquery");
 const GoogleMapsLoader = require('google-maps');
 let viewModel = require("./viewModel.js");
 
@@ -27,7 +28,8 @@ function getAllPlaces(){
 function createAllMarkers(allMarkers){
   allMarkers.forEach(function(place){
     let marker = createMarker(place);
-    marker.infoWindow = createInfoWindow();
+    marker.infoWindow = createInfoWindow(place.name);
+    addDescription(marker);
     addListeners(marker);
     //Add marker to markers array
     viewModel.markers.push(marker);
@@ -42,9 +44,21 @@ function createMarker(place){
       });
 }
 
-function createInfoWindow(){
+function createInfoWindow(placeName){
   return new google.maps.InfoWindow({
-      content: ":DDDDD"
+    maxWidth: 200
+  });
+}
+
+function addDescription(marker){
+  $.ajax({
+      url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + marker.title,
+      dataType: 'jsonp',
+      type: 'GET',
+      success: function(data) {
+        let description =  data[2][0];
+        marker.infoWindow.setContent(description);
+      }
   });
 }
 
@@ -56,7 +70,7 @@ function addListeners(marker){
 }
 
 function closeAllInfoWindow(){
-  viewModel.markers().forEach(function(marker){
+  viewModel.markers.forEach(function(marker){
     marker.infoWindow.close(map, marker);
   })
 }

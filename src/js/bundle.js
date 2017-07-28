@@ -70,11 +70,93 @@
 "use strict";
 
 
-var $ = __webpack_require__(1);
-var map = __webpack_require__(2);
+var map = __webpack_require__(1);
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var $ = __webpack_require__(2);
+var GoogleMapsLoader = __webpack_require__(3);
+var viewModel = __webpack_require__(4);
+
+initMap();
+
+GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
+
+function initMap() {
+  GoogleMapsLoader.load(function (google) {
+    renderMap();
+    createAllMarkers(getAllPlaces());
+  });
+}
+
+function renderMap() {
+  return viewModel.map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 52.231838, lng: 21.0038063 },
+    zoom: 13
+  });
+}
+
+function getAllPlaces() {
+  return viewModel.allPlaces();
+}
+
+function createAllMarkers(allMarkers) {
+  allMarkers.forEach(function (place) {
+    var marker = createMarker(place);
+    marker.infoWindow = createInfoWindow(place.name);
+    addDescription(marker);
+    addListeners(marker);
+    //Add marker to markers array
+    viewModel.markers.push(marker);
+  });
+}
+
+function createMarker(place) {
+  return new google.maps.Marker({
+    position: { lat: place.lat, lng: place.lng },
+    map: viewModel.map,
+    title: place.name
+  });
+}
+
+function createInfoWindow(placeName) {
+  return new google.maps.InfoWindow({
+    maxWidth: 200
+  });
+}
+
+function addDescription(marker) {
+  $.ajax({
+    url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + marker.title,
+    dataType: 'jsonp',
+    type: 'GET',
+    success: function success(data) {
+      var description = data[2][0];
+      marker.infoWindow.setContent(description);
+    }
+  });
+}
+
+function addListeners(marker) {
+  marker.addListener('click', function () {
+    closeAllInfoWindow();
+    marker.infoWindow.open(map, marker);
+  });
+}
+
+function closeAllInfoWindow() {
+  viewModel.markers.forEach(function (marker) {
+    marker.infoWindow.close(map, marker);
+  });
+}
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10334,75 +10416,6 @@ return jQuery;
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var GoogleMapsLoader = __webpack_require__(3);
-var viewModel = __webpack_require__(4);
-
-initMap();
-
-GoogleMapsLoader.KEY = 'AIzaSyBwTkrCtLKEQD5ocyIcgNZgCwQFjwtMRs0';
-
-function initMap() {
-  GoogleMapsLoader.load(function (google) {
-    renderMap();
-    createAllMarkers(getAllPlaces());
-  });
-}
-
-function renderMap() {
-  return viewModel.map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 52.231838, lng: 21.0038063 },
-    zoom: 13
-  });
-}
-
-function getAllPlaces() {
-  return viewModel.allPlaces();
-}
-
-function createAllMarkers(allMarkers) {
-  allMarkers.forEach(function (place) {
-    var marker = createMarker(place);
-    marker.infoWindow = createInfoWindow();
-    addListeners(marker);
-    //Add marker to markers array
-    viewModel.markers.push(marker);
-  });
-}
-
-function createMarker(place) {
-  return new google.maps.Marker({
-    position: { lat: place.lat, lng: place.lng },
-    map: viewModel.map,
-    title: place.name
-  });
-}
-
-function createInfoWindow() {
-  return new google.maps.InfoWindow({
-    content: ":DDDDD"
-  });
-}
-
-function addListeners(marker) {
-  marker.addListener('click', function () {
-    closeAllInfoWindow();
-    marker.infoWindow.open(map, marker);
-  });
-}
-
-function closeAllInfoWindow() {
-  viewModel.markers().forEach(function (marker) {
-    marker.infoWindow.close(map, marker);
-  });
-}
-
-/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10643,13 +10656,13 @@ var ko = __webpack_require__(5);
 var myViewModel = {
   map: null,
   //All markers
-  allPlaces: ko.observableArray([{ name: "Pałac Kultury", lat: 52.231838, lng: 21.0038063 }, { name: "Muzeum Narodowe", lat: 52.2315987, lng: 21.02261 }, { name: "Muzeum Powstania Warszawskiego", lat: 52.2323289, lng: 20.9786972 }, { name: "Stare Miasto", lat: 52.2500272, lng: 21.0092832 }, { name: "Łazienki Królewskie", lat: 52.2151532, lng: 21.0328105 }, { name: "PGE Narodowy", lat: 52.2394957, lng: 21.0436022 }]),
+  allPlaces: ko.observableArray([{ name: "Palace of Culture and Science", lat: 52.231838, lng: 21.0038063 }, { name: "National Museum, Warsaw", lat: 52.2315987, lng: 21.02261 }, { name: "Warsaw Uprising Museum", lat: 52.2323289, lng: 20.9786972 }, { name: "Warsaw Old Town", lat: 52.2500272, lng: 21.0092832 }, { name: "Łazienki Palace", lat: 52.2151532, lng: 21.0328105 }, { name: "National Stadium, Warsaw", lat: 52.2394957, lng: 21.0436022 }]),
 
   //List of actual filtered placesp
   filteredPlaces: ko.observableArray([]),
 
   //List of all markers
-  markers: ko.observableArray([]),
+  markers: [],
 
   updateMarkers: function updateMarkers() {
     stopAnimateAll();
@@ -10663,7 +10676,7 @@ var myViewModel = {
   },
 
   filterMarkers: function filterMarkers() {
-    myViewModel.markers().forEach(function (marker, index) {
+    myViewModel.markers.forEach(function (marker, index) {
       //Create new RegExp according to actual searched place name
       var searchedPlaceName = new RegExp(getSearchedPlaceName());
       changeMarkerVisibility(marker, searchedPlaceName);
@@ -10672,7 +10685,7 @@ var myViewModel = {
 
   showClickedPlace: function showClickedPlace(place) {
     var searchedPlaceName = new RegExp(place.name);
-    lookForClickedPlace(myViewModel.markers(), searchedPlaceName);
+    lookForClickedPlace(myViewModel.markers, searchedPlaceName);
   }
 
 };
@@ -10742,7 +10755,7 @@ function hideMarker(marker) {
 }
 
 function hideAllMarkers() {
-  myViewModel.markers().forEach(function (marker) {
+  myViewModel.markers.forEach(function (marker) {
     marker.setMap(null);
   });
 }
@@ -10756,7 +10769,7 @@ function stopAnimateMarker(marker) {
 }
 
 function stopAnimateAll() {
-  myViewModel.markers().forEach(function (marker) {
+  myViewModel.markers.forEach(function (marker) {
     stopAnimateMarker(marker);
   });
 }
@@ -10770,7 +10783,7 @@ function closeInfoWindow(marker) {
 }
 
 function closeAllInfoWindow(marker) {
-  myViewModel.markers().forEach(function (marker) {
+  myViewModel.markers.forEach(function (marker) {
     closeInfoWindow(marker);
   });
 }
