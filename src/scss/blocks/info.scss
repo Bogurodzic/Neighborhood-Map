@@ -1,6 +1,11 @@
 .info {
   width: 20%;
   background: $lightGreen;
+  display: none;
+
+  &--visible {
+    display: block;
+  }
 
   @media screen and (max-width: 1100px) {
     min-width: 250px;

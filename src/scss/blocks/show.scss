@@ -1,0 +1,12 @@
+.show {
+  width: 45px;
+  height: auto;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.4;
+  }
+}
