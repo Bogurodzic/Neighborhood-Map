@@ -12,6 +12,10 @@ let myViewModel = {
       { title: "Warsaw Old Town", name: "Warsaw Old Town", lat: 52.2500272, lng: 21.0092832 },
       { title: "Łazienki Palace", name: "Łazienki Palace", lat: 52.2151532, lng: 21.0328105 },
       { title: "National Stadium, Warsaw", name: "National Stadium, Warsaw", lat: 52.2394957, lng: 21.0436022 },
+      { title: "Copernicus Science Centre", name: "Copernicus Science Centre", lat: 52.2418552, lng: 21.0265384 },
+      { title: "POLIN Museum of the History of Polish Jews", name: "POLIN Museum of the History of Polish Jews", lat: 52.2493743, lng: 20.9909953 },
+      { title: "Royal Route, Warsaw", name: "Royal Route", lat: 52.2390541, lng: 21.0074249 },
+      { title: "St. Martin's Church, Warsaw", name: "St. Martin's Church", lat: 52.2481905, lng: 21.0102114 }
   ]),
 
   //List of actual filtered placesp
