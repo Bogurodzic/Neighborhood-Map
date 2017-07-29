@@ -41,7 +41,7 @@ function createMarker(place){
   return new google.maps.Marker({
         position: {lat: place.lat, lng: place.lng},
         map: viewModel.map,
-        title: place.name,
+        title: place.title,
         icon: "../img/marker-small.png"
       });
 }

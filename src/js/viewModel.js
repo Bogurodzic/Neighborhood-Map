@@ -5,12 +5,13 @@ let myViewModel = {
   map: null,
   //All markers
   allPlaces: ko.observableArray([
-      { name: "Palace of Culture and Science", lat: 52.231838, lng: 21.0038063 },
-      { name: "National Museum, Warsaw", lat: 52.2315987, lng: 21.02261 },
-      { name: "Warsaw Uprising Museum", lat: 52.2323289, lng: 20.9786972 },
-      { name: "Warsaw Old Town", lat: 52.2500272, lng: 21.0092832 },
-      { name: "Łazienki Palace", lat: 52.2151532, lng: 21.0328105 },
-      { name: "National Stadium, Warsaw", lat: 52.2394957, lng: 21.0436022 },
+      //Name is provided for better ajax output
+      { title: "Palace of Culture and Science", name: "Palace of Culture and Science", lat: 52.231838, lng: 21.0038063 },
+      { title: "National Museum, Warsaw", name: "National Museum, Warsaw", lat: 52.2315987, lng: 21.02261 },
+      { title: "Warsaw Uprising Museum", name: "Warsaw Uprising Museum", lat: 52.2323289, lng: 20.9786972 },
+      { title: "Warsaw Old Town", name: "Warsaw Old Town", lat: 52.2500272, lng: 21.0092832 },
+      { title: "Łazienki Palace", name: "Łazienki Palace", lat: 52.2151532, lng: 21.0328105 },
+      { title: "National Stadium, Warsaw", name: "National Stadium, Warsaw", lat: 52.2394957, lng: 21.0436022 },
   ]),
 
   //List of actual filtered placesp
