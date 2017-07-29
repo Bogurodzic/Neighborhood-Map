@@ -42,7 +42,7 @@ function createMarker(place){
         position: {lat: place.lat, lng: place.lng},
         map: viewModel.map,
         title: place.title,
-        icon: "../img/marker-small.png"
+        icon: "img/marker-small.png"
       });
 }
 

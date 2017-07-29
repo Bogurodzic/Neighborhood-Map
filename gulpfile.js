@@ -45,7 +45,7 @@ gulp.task("html", function(){
 
 gulp.task("copy", function(){
 
-	return gulp.src(["src/fonts/*", "src/css/*", "src/img/*"], {
+	return gulp.src(["src/fonts/*", "src/css/*", "src/img/*", "src/js/bundle.js"], {
 		base: "src/"
 	})
 	.pipe(gulp.dest("build/"));
