@@ -7,7 +7,9 @@ New version will be avaliable soon.
 
 1. Download zip file from GIT.
 2. Unzip the downloaded file.
-3. Run "index.html" in your browser.
+3. Go to the folder, open cmd and type npm install.
+4. Type npm start and after that gulp build.
+5. Run index.html in build folder.
 
 ## Site functionality
 
