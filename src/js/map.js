@@ -66,7 +66,7 @@ function addDescription(marker){
 
 function addListeners(marker){
   marker.addListener('click', function() {
-    closeAllInfoWindow();
+    viewModel.stopAll();
     marker.infoWindow.open(map, marker);
   });
 }

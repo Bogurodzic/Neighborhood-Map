@@ -46,6 +46,11 @@ let myViewModel = {
   showClickedPlace: function(place){
     let searchedPlaceName = new RegExp(place.name)
     lookForClickedPlace(myViewModel.markers, searchedPlaceName);
+  },
+
+  stopAll: function(){
+    closeAllInfoWindow();
+    stopAnimateAll();
   }
 
 }
@@ -59,8 +64,7 @@ function lookForSearchedPlace(allPlaces, searchedPlaceName){
 function lookForClickedPlace(allMarkers, searchedPlaceName){
   allMarkers.forEach(function(marker){
     if(checkPlace(marker.title, searchedPlaceName)){
-      stopAnimateAll();
-      closeAllInfoWindow();
+      myViewModel.stopAll();
       addInfoWindowEvents(marker)
       openInfoWindow(marker);
       animateMarker(marker);
@@ -142,7 +146,7 @@ function closeInfoWindow(marker){
   marker.infoWindow.close(map, marker);
 }
 
-function closeAllInfoWindow(marker){
+function closeAllInfoWindow(){
   myViewModel.markers.forEach(function(marker){
       closeInfoWindow(marker);
   })

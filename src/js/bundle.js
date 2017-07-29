@@ -10407,7 +10407,7 @@ function addDescription(marker) {
 
 function addListeners(marker) {
     marker.addListener('click', function () {
-        closeAllInfoWindow();
+        viewModel.stopAll();
         marker.infoWindow.open(map, marker);
     });
 }
@@ -10803,6 +10803,11 @@ var myViewModel = {
   showClickedPlace: function showClickedPlace(place) {
     var searchedPlaceName = new RegExp(place.name);
     lookForClickedPlace(myViewModel.markers, searchedPlaceName);
+  },
+
+  stopAll: function stopAll() {
+    closeAllInfoWindow();
+    stopAnimateAll();
   }
 
 };
@@ -10816,8 +10821,7 @@ function lookForSearchedPlace(allPlaces, searchedPlaceName) {
 function lookForClickedPlace(allMarkers, searchedPlaceName) {
   allMarkers.forEach(function (marker) {
     if (checkPlace(marker.title, searchedPlaceName)) {
-      stopAnimateAll();
-      closeAllInfoWindow();
+      myViewModel.stopAll();
       addInfoWindowEvents(marker);
       openInfoWindow(marker);
       animateMarker(marker);
@@ -10899,7 +10903,7 @@ function closeInfoWindow(marker) {
   marker.infoWindow.close(map, marker);
 }
 
-function closeAllInfoWindow(marker) {
+function closeAllInfoWindow() {
   myViewModel.markers.forEach(function (marker) {
     closeInfoWindow(marker);
   });
