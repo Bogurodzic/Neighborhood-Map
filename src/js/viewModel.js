@@ -18,6 +18,8 @@ let myViewModel = {
       { title: "St. Martin's Church, Warsaw", name: "St. Martin's Church", lat: 52.2481905, lng: 21.0102114 }
   ]),
 
+  filter: ko.observable(),
+
   //List of actual filtered placesp
   filteredPlaces: ko.observableArray([]),
 
@@ -161,7 +163,7 @@ function closeAllInfoWindow(){
 
 
 function getSearchedPlaceName(){
-  return document.getElementById("place-name").value;
+  return myViewModel.filter();
 }
 
 ko.applyBindings(myViewModel);
