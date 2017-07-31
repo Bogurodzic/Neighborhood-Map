@@ -10402,6 +10402,9 @@ function addDescription(marker) {
         success: function success(data) {
             var description = data[2][0];
             marker.infoWindow.setContent(description);
+        },
+        error: function error(request, status, _error) {
+            alert("Sorry but there was problem with connecting to wikipedia api due to :" + request.responseText);
         }
     });
 }
