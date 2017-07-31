@@ -51,6 +51,14 @@ let myViewModel = {
   stopAll: function(){
     closeAllInfoWindow();
     stopAnimateAll();
+  },
+
+  addInfoWindowEvents: function(){
+    myViewModel.markers.forEach(function(marker){
+      google.maps.event.addListener(marker.infoWindow, "closeclick", function() {
+          stopAnimateAll();
+      });
+    })
   }
 
 }
@@ -65,7 +73,6 @@ function lookForClickedPlace(allMarkers, searchedPlaceName){
   allMarkers.forEach(function(marker){
     if(checkPlace(marker.title, searchedPlaceName)){
       myViewModel.stopAll();
-      addInfoWindowEvents(marker)
       openInfoWindow(marker);
       animateMarker(marker);
     }
@@ -152,11 +159,6 @@ function closeAllInfoWindow(){
   })
 }
 
-function addInfoWindowEvents(marker){
-  google.maps.event.addListener(marker.infoWindow, "closeclick", function() {
-      stopAnimateMarker(marker);
-  });
-}
 
 function getSearchedPlaceName(){
   return document.getElementById("place-name").value;

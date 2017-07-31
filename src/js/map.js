@@ -11,6 +11,7 @@ function initMap(){
   GoogleMapsLoader.load(function(google) {
     renderMap();
     createAllMarkers(getAllPlaces());
+    viewModel.addInfoWindowEvents();
   });
 }
 
@@ -72,6 +73,7 @@ function addListeners(marker){
   marker.addListener('click', function() {
     viewModel.stopAll();
     marker.infoWindow.open(map, marker);
+    animateMarker(marker);
   });
 }
 
@@ -79,6 +81,10 @@ function closeAllInfoWindow(){
   viewModel.markers.forEach(function(marker){
     marker.infoWindow.close(map, marker);
   })
+}
+
+function animateMarker(marker){
+  marker.setAnimation(google.maps.Animation.BOUNCE);
 }
 
 var styles = [

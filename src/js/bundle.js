@@ -10352,6 +10352,7 @@ function initMap() {
     GoogleMapsLoader.load(function (google) {
         renderMap();
         createAllMarkers(getAllPlaces());
+        viewModel.addInfoWindowEvents();
     });
 }
 
@@ -10413,6 +10414,7 @@ function addListeners(marker) {
     marker.addListener('click', function () {
         viewModel.stopAll();
         marker.infoWindow.open(map, marker);
+        animateMarker(marker);
     });
 }
 
@@ -10420,6 +10422,10 @@ function closeAllInfoWindow() {
     viewModel.markers.forEach(function (marker) {
         marker.infoWindow.close(map, marker);
     });
+}
+
+function animateMarker(marker) {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
 }
 
 var styles = [{
@@ -10812,6 +10818,14 @@ var myViewModel = {
   stopAll: function stopAll() {
     closeAllInfoWindow();
     stopAnimateAll();
+  },
+
+  addInfoWindowEvents: function addInfoWindowEvents() {
+    myViewModel.markers.forEach(function (marker) {
+      google.maps.event.addListener(marker.infoWindow, "closeclick", function () {
+        stopAnimateAll();
+      });
+    });
   }
 
 };
@@ -10826,7 +10840,6 @@ function lookForClickedPlace(allMarkers, searchedPlaceName) {
   allMarkers.forEach(function (marker) {
     if (checkPlace(marker.title, searchedPlaceName)) {
       myViewModel.stopAll();
-      addInfoWindowEvents(marker);
       openInfoWindow(marker);
       animateMarker(marker);
     }
@@ -10910,12 +10923,6 @@ function closeInfoWindow(marker) {
 function closeAllInfoWindow() {
   myViewModel.markers.forEach(function (marker) {
     closeInfoWindow(marker);
-  });
-}
-
-function addInfoWindowEvents(marker) {
-  google.maps.event.addListener(marker.infoWindow, "closeclick", function () {
-    stopAnimateMarker(marker);
   });
 }
 
