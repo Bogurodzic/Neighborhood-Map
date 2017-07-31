@@ -7,8 +7,8 @@
   <title>Neighborhood Map</title>
 </head>
 <body>
-  <main class="wrapper">
-    <div class="info info--visible" id="info">
+  <div class="wrapper">
+    <aside class="info info--visible" id="info">
       <div class="info-title">
         <h2 class="info-title__item">My favourite places in Warsaw</h2>
       </div>
@@ -18,10 +18,10 @@
       <ul class="place-list" data-bind="foreach: filteredPlaces">
         <li data-bind="text: name, event: { click: $parent.showClickedPlace }" class="place-list__item"></li>
       </ul>
-    </div>
-    <div id="map" class="map"></div>
+    </aside>
+    <main id="map" class="map"></main>
     <img class="show" id="show" src="img/show.png" alt="">
-  </main>
+  </div>
   <script src="js/bundle.js"></script>
 </body>
 </html>
