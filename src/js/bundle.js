@@ -10406,7 +10406,7 @@ function addDescription(marker) {
       marker.infoWindow.setContent(description);
     },
     error: function error(request, status, _error) {
-      alert("Sorry but there was problem with connecting to wikipedia api due to :" + request.responseText);
+      console.log("Sorry but there was problem with connecting to wikipedia api due to :" + request.responseText);
     }
   });
 }
@@ -10428,6 +10428,14 @@ function closeAllInfoWindow() {
 function animateMarker(marker) {
   marker.setAnimation(google.maps.Animation.BOUNCE);
 }
+
+function checkGMapsLoad() {
+  if (!window.google || !window.google.maps) {
+    console.log("There is a problem with loading google map api");
+  }
+}
+
+window.setTimeout(checkGMapsLoad, 5000);
 
 /***/ }),
 /* 3 */
