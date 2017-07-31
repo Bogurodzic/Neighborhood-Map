@@ -42,6 +42,7 @@ function createMarker(place){
         position: {lat: place.lat, lng: place.lng},
         map: viewModel.map,
         title: place.title,
+        name: place.name,
         icon: "img/marker-small.png"
       });
 }
