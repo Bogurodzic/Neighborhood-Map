@@ -65,7 +65,7 @@ function addDescription(marker){
         marker.infoWindow.setContent(description);
       },
       error: function (request, status, error) {
-        console.log("Sorry but there was problem with connecting to wikipedia api due to :" + request.responseText);
+        window.alert("Sorry but there was problem with connecting to Wikipedia API due to :" + request.responseText);
       }
   });
 }
@@ -90,7 +90,7 @@ function animateMarker(marker){
 
 function checkGMapsLoad() {
   if(!window.google || !window.google.maps) {
-    console.log("There is a problem with loading google map api");
+    window.alert("There is a problem with loading Google Map API");
   }
 }
 
