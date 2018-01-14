@@ -1,8 +1,8 @@
 # Neighborhood Map
 Udacity neighborhood map project
-This is the new version of the map. I am creating it to compare my progress. [[new version]](http://kamiljarzab.pl/Projekty/Neighborhood%20Map%20New/)
+This is the new version of the map. I am creating it to compare my progress. [[new version]](http://kamil.webheroes.io/Projekty/Map)
 
-The old version was made at the very beggining of my front-end path. Here you can check [[old version]](http://kamiljarzab.pl/Projekty/Neighborhood%20Map/)
+The old version was made at the very beggining of my front-end path. Here you can check ##soon##
 
 ## How to run?
 
